@@ -232,10 +232,10 @@ classDiagram
 5. Tests TDD para `Criatura` (estructura básica)
 
 **Criterios de aceptación:**
-- [ ] Enum `AfinidadElemental` con 4 valores
-- [ ] Excepciones correctamente definidas
-- [ ] Clase abstracta `Criatura` compila
-- [ ] Tests básicos pasan
+- [X] Enum `AfinidadElemental` con 4 valores
+- [X] Excepciones correctamente definidas
+- [X] Clase abstracta `Criatura` compila
+- [X] Tests básicos pasan
 
 ---
 
