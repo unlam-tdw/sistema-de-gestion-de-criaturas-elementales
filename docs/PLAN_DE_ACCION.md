@@ -258,10 +258,10 @@ classDiagram
    - Tests de excepciones
 
 **Criterios de aceptación:**
-- [ ] Las 3 clases de criaturas implementadas
-- [ ] Comportamiento diferenciado en entrenamiento
-- [ ] Excepciones lanzadas correctamente
-- [ ] Cobertura de tests > 70% para criaturas
+- [X] Las 3 clases de criaturas implementadas
+- [X] Comportamiento diferenciado en entrenamiento
+- [X] Excepciones lanzadas correctamente
+- [X] Cobertura de tests > 70% para criaturas
 
 ---
 
@@ -287,10 +287,10 @@ classDiagram
    - Tests de transformar criatura (preparación para Fase 4)
 
 **Criterios de aceptación:**
-- [ ] Clase `MaestroElemental` completa
-- [ ] HashMap de criaturas funcionando
-- [ ] Validación de maestría implementada
-- [ ] Tests pasan
+- [X] Clase `MaestroElemental` completa
+- [X] HashMap de criaturas funcionando
+- [X] Validación de maestría implementada
+- [X] Tests pasan (implementado con stubs, pendiente reemplazo con clases reales de Fase 2)
 
 ---
 
@@ -446,7 +446,7 @@ test/
   
 - **Criaturas Ancestrales:**
   - Factor fijo: `factorTipo = 3`
-  - Si `nivelMaestria > 40` → entrenamiento extremo → criatura se vuelve inestable
+  - Si el parámetro `nivelMaestria` recibido en `entrenar(int nivelMaestria) > 40` → entrenamiento extremo → criatura se vuelve inestable
   - Validación: energía nunca baja de 100
 
 ### Umbral de Maestría:
@@ -462,9 +462,10 @@ test/
 
 ### Entrenamientos Extremos (Ancestrales):
 
-- **Condición:** `nivelMaestria > 40`
+- **Condición:** El parámetro `nivelMaestria` recibido en `entrenar(int nivelMaestria) > 40`
 - **Efecto:** La criatura ancestral se vuelve inestable (`estaInestable = true`)
 - **Justificación:** Las criaturas ancestrales son sensibles a entrenamientos muy intensos
+- **Nota:** El nivel de maestría proviene del atributo `nivelMaestria` del `MaestroElemental` cuando se entrena a través de `maestro.entrenarCriatura()`. La criatura ancestral evalúa el parámetro recibido, no consulta directamente al maestro.
 
 ### Pacificación Polimórfica:
 
