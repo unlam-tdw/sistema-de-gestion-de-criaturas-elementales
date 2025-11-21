@@ -1,0 +1,37 @@
+# Archivos compilados
+bin/
+*.class
+*.jar
+*.war
+*.ear
+
+# Archivos de IDE
+.settings/
+.classpath
+.project
+.metadata
+*.iml
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos temporales
+*.tmp
+*.log
+*.bak
+
+# Archivos de build
+target/
+build/
+out/
+dist/
+
+# Archivos de cobertura de tests
+coverage/
+*.exec
+
