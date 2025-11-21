@@ -315,10 +315,10 @@ classDiagram
    - Tests de orden de aplicación
 
 **Criterios de aceptación:**
-- [ ] Patrón decorador implementado correctamente
-- [ ] Las 4 transformaciones funcionan
-- [ ] Apilado de transformaciones funciona
-- [ ] Tests completos
+- [X] Patrón decorador implementado correctamente
+- [X] Las 4 transformaciones funcionan
+- [X] Apilado de transformaciones funciona
+- [X] Tests completos
 
 ---
 
