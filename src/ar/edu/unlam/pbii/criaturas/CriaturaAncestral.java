@@ -6,8 +6,11 @@ public class CriaturaAncestral extends Criatura {
     }
 
     public void entrenar(int nivelMaestria) {
-
-        int energiaObtenida = nivelMaestria * 3; // Factor mayor ya que son más sensibles al entrenamiento
+        if (nivelMaestria > 40) {
+            this.estaInestable = true;
+        }
+        
+        int energiaObtenida = nivelMaestria * 3;
         int nuevoNivelEnergia = this.nivelEnergia + energiaObtenida;
         if (nuevoNivelEnergia > 200) {
             this.estaInestable = true;
@@ -15,7 +18,6 @@ public class CriaturaAncestral extends Criatura {
         } else {
             this.nivelEnergia = nuevoNivelEnergia;
         }
-        ;
     }
 
     public void pacificar() {

@@ -9,6 +9,7 @@
 ```
 ar.edu.unlam.pbii
 ├── criaturas/
+│   ├── AfinidadElemental.java (enum)
 │   ├── Criatura.java (clase abstracta)
 │   ├── CriaturaSalvaje.java
 │   ├── CriaturaDomesticada.java
@@ -31,8 +32,6 @@ ar.edu.unlam.pbii
 │   ├── EnergiaExcedidaException.java (unchecked)
 │   ├── CriaturaNoEncontradaException.java (checked)
 │   └── NombreDuplicadoException.java (checked)
-└── utilidades/
-    └── AfinidadElemental.java (enum)
 ```
 
 ### Diagrama de Clases (Resumen)
@@ -79,9 +78,6 @@ classDiagram
     
     class Transformacion {
         <<interface>>
-        +aplicar(Criatura criatura) Criatura
-        +getEnergiaTotal() int
-        +getAfinidad() AfinidadElemental
         +getCriaturaBase() Criatura
     }
     
@@ -123,7 +119,7 @@ classDiagram
         -HashMap~String,Criatura~ criaturas
         +entrenarCriatura(String nombre) void
         +pacificarCriatura(String nombre) void
-        +transformarCriatura(String nombre, Transformacion t) void
+        +transformarCriatura(String nombre, Criatura transformacion) void
         +agregarCriatura(Criatura c) void
         +contarCriaturasTransformadas() int
     }
@@ -273,7 +269,8 @@ classDiagram
    - `entrenarCriatura(String nombre)`: valida maestría, llama a `criatura.entrenar()`
    - `pacificarCriatura(String nombre)`: llama a `criatura.pacificar()`
    - `agregarCriatura(Criatura c)`: agrega al HashMap
-   - `transformarCriatura(String nombre, Transformacion t)`: (preparar para Fase 4)
+   - `transformarCriatura(String nombre, Criatura transformacion)`: (preparar para Fase 4)
+   - `contarCriaturasTransformadas()`: cuenta criaturas que implementan `Transformacion`
 2. Validación de nivel de maestría:
    - Si nivel < umbral → lanza `MaestriaInsuficienteException`
    - Umbral a definir (ej: nivelMaestria < 10 para entrenar)
@@ -290,7 +287,7 @@ classDiagram
 - [X] Clase `MaestroElemental` completa
 - [X] HashMap de criaturas funcionando
 - [X] Validación de maestría implementada
-- [X] Tests pasan (implementado con stubs, pendiente reemplazo con clases reales de Fase 2)
+- [X] Tests pasan con clases reales de Fase 2
 
 ---
 
@@ -298,9 +295,8 @@ classDiagram
 
 #### Tareas:
 1. Diseñar interfaz/clase base `Transformacion`:
-   - Método `getEnergiaTotal()`: int
-   - Método `getAfinidad()`: AfinidadElemental
    - Método `getCriaturaBase()`: Criatura
+   - Nota: Las transformaciones implementan `Criatura` y `Transformacion` (patrón Decorador)
 2. Implementar `CriaturaTransformada` (decorador base):
    - Envuelve una `Criatura`
    - Delega métodos básicos
@@ -411,13 +407,19 @@ test/
         └── unlam/
             └── pbii/
                 ├── criaturas/
+                │   ├── AfinidadElementalTest.java
                 │   ├── CriaturaTest.java
                 │   ├── CriaturaSalvajeTest.java
                 │   ├── CriaturaDomesticadaTest.java
-                │   └── CriaturaAncestralTest.java
+                │   ├── CriaturaAncestralTest.java
+                │   └── CriaturaInteraccionesTest.java
+                ├── excepciones/
+                │   ├── EnergiaExcedidaExceptionTest.java
+                │   └── MaestriaInsuficienteExceptionTest.java
                 ├── maestros/
                 │   └── MaestroElementalTest.java
                 ├── transformaciones/
+                │   ├── CriaturaTransformadaTest.java
                 │   ├── BendicionDelRioTest.java
                 │   ├── LlamaInternaTest.java
                 │   ├── VinculoTerrestreTest.java
@@ -437,7 +439,7 @@ test/
 **Fórmula base:** `energia += nivelMaestria * factorTipo`
 
 - **Criaturas Salvajes:**
-  - Factor aleatorio entre 1 y 5: `factorTipo = random(1, 5)`
+  - Aumento aleatorio: `energia += random(1, 200)`
   - Puede superar 200 → lanza `EnergiaExcedidaException` (unchecked)
   
 - **Criaturas Domesticadas:**
@@ -456,9 +458,8 @@ test/
 
 ### Aumento Aleatorio en Criaturas Salvajes:
 
-- **Rango:** `energia += random(10, 50)`
-- O alternativamente: `energia += nivelMaestria * random(1, 5)`
-- **Decisión final:** Usar `nivelMaestria * random(1, 5)` para mantener consistencia con la fórmula base
+- **Rango:** `energia += random(1, 200)`
+- **Decisión final:** Usar `random(1, 200)` para simular comportamiento impredecible de criaturas salvajes
 
 ### Entrenamientos Extremos (Ancestrales):
 
@@ -477,11 +478,13 @@ test/
 ### Estructura de Branches Propuesta:
 ```
 main
-├── fase1-fundamentos
-├── fase2-tipos-criaturas
-├── fase3-maestros
-├── fase4-transformaciones
-├── fase5-interacciones
-├── fase6-reportes
-└── fase7-integracion
+├── feat/tdd-01
+├── feat/tdd-02
+├── feat/phase-01
+├── feat/phase-02
+├── feat/phase-03
+├── feat/phase-04
+├── feat/phase-05
+├── feat/phase-06
+└── feat/phase-07
 ```
