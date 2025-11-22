@@ -10,7 +10,6 @@ import ar.edu.unlam.pbii.criaturas.Criatura;
 import ar.edu.unlam.pbii.criaturas.CriaturaDomesticada;
 import ar.edu.unlam.pbii.criaturas.CriaturaSalvaje;
 import ar.edu.unlam.pbii.excepciones.CriaturaNoEncontradaException;
-import ar.edu.unlam.pbii.excepciones.EnergiaExcedidaException;
 import ar.edu.unlam.pbii.excepciones.MaestriaInsuficienteException;
 import ar.edu.unlam.pbii.excepciones.NombreDuplicadoException;
 import ar.edu.unlam.pbii.transformaciones.BendicionDelRio;
@@ -51,7 +50,7 @@ public class MaestroElementalTest {
 	}
 	
 	@Test
-	public void testAgregarCriatura() {
+	public void testAgregarCriatura() throws NombreDuplicadoException {
 		maestro.agregarCriatura(criatura);
 		
 		assertTrue("Debe contener la criatura agregada", maestro.getCriaturas().containsKey(criatura.getNombre()));
@@ -59,12 +58,12 @@ public class MaestroElementalTest {
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void testAgregarCriaturaNullLanzaExcepcion() {
+	public void testAgregarCriaturaNullLanzaExcepcion() throws NombreDuplicadoException {
 		maestro.agregarCriatura(null);
 	}
 	
 	@Test
-	public void testEntrenarCriaturaExitoso() throws MaestriaInsuficienteException, CriaturaNoEncontradaException {
+	public void testEntrenarCriaturaExitoso() throws MaestriaInsuficienteException, CriaturaNoEncontradaException, NombreDuplicadoException {
 		maestro.agregarCriatura(criatura);
 		int energiaInicial = criatura.getNivelEnergia();
 		
@@ -74,7 +73,7 @@ public class MaestroElementalTest {
 	}
 	
 	@Test
-	public void testEntrenarCriaturaConMaestria10() throws MaestriaInsuficienteException, CriaturaNoEncontradaException {
+	public void testEntrenarCriaturaConMaestria10() throws MaestriaInsuficienteException, CriaturaNoEncontradaException, NombreDuplicadoException {
 		MaestroElemental maestroLimite = new MaestroElemental("Test", 10, AfinidadElemental.AGUA);
 		maestroLimite.agregarCriatura(criatura);
 		
@@ -82,7 +81,7 @@ public class MaestroElementalTest {
 	}
 	
 	@Test(expected = MaestriaInsuficienteException.class)
-	public void testEntrenarCriaturaConMaestria9LanzaExcepcion() throws MaestriaInsuficienteException, CriaturaNoEncontradaException {
+	public void testEntrenarCriaturaConMaestria9LanzaExcepcion() throws MaestriaInsuficienteException, CriaturaNoEncontradaException, NombreDuplicadoException {
 		MaestroElemental maestroInsuficiente = new MaestroElemental("Test", 9, AfinidadElemental.FUEGO);
 		maestroInsuficiente.agregarCriatura(criatura);
 		
@@ -95,7 +94,7 @@ public class MaestroElementalTest {
 	}
 	
 	@Test
-	public void testEntrenarCriaturaSalvajePuedeLanzarExcepcion() {
+	public void testEntrenarCriaturaSalvajePuedeLanzarExcepcion() throws NombreDuplicadoException {
 		CriaturaSalvaje criaturaSalvaje = new CriaturaSalvaje("Dragon Salvaje", 199, AfinidadElemental.FUEGO);
 		maestro.agregarCriatura(criaturaSalvaje);
 		
@@ -111,7 +110,7 @@ public class MaestroElementalTest {
 	}
 	
 	@Test
-	public void testPacificarCriatura() throws CriaturaNoEncontradaException {
+	public void testPacificarCriatura() throws CriaturaNoEncontradaException, NombreDuplicadoException {
 		maestro.agregarCriatura(criatura);
 		
 		maestro.pacificarCriatura(criatura.getNombre());
@@ -125,7 +124,7 @@ public class MaestroElementalTest {
 	}
 	
 	@Test
-	public void testContarCriaturasTransformadas() {
+	public void testContarCriaturasTransformadas() throws NombreDuplicadoException {
 		assertEquals("No debe haber criaturas transformadas inicialmente", 0, maestro.contarCriaturasTransformadas());
 		
 		maestro.agregarCriatura(criatura);
@@ -141,7 +140,7 @@ public class MaestroElementalTest {
 	}
 	
 	@Test
-	public void testTransformarCriatura() throws CriaturaNoEncontradaException {
+	public void testTransformarCriatura() throws CriaturaNoEncontradaException, NombreDuplicadoException {
 		maestro.agregarCriatura(criatura);
 		int energiaInicial = criatura.getEnergiaTotal();
 		
@@ -150,8 +149,7 @@ public class MaestroElementalTest {
 		
 		Criatura criaturaTransformada = maestro.getCriaturas().get(criatura.getNombre());
 		assertNotNull("Debe existir la criatura transformada", criaturaTransformada);
-		assertTrue("La energía debe aumentar con la transformación", 
-				criaturaTransformada.getEnergiaTotal() > energiaInicial);
+		assertTrue("La energía debe aumentar con la transformación", criaturaTransformada.getEnergiaTotal() > energiaInicial);
 	}
 	
 	@Test(expected = CriaturaNoEncontradaException.class)
