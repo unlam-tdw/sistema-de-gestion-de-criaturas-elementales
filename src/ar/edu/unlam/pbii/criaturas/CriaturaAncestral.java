@@ -14,9 +14,9 @@ public class CriaturaAncestral extends Criatura {
         int nuevoNivelEnergia = this.nivelEnergia + energiaObtenida;
         if (nuevoNivelEnergia > 200) {
             this.estaInestable = true;
-            this.nivelEnergia = 200;
+            this.setNivelEnergia(200);
         } else {
-            this.nivelEnergia = nuevoNivelEnergia;
+            this.setNivelEnergia(nuevoNivelEnergia);
         }
     }
 
@@ -27,6 +27,11 @@ public class CriaturaAncestral extends Criatura {
     @Override
     public boolean esAncestral() {
         return true;
+    }
+
+    @Override
+    protected void setNivelEnergia(int nivelEnergia) {
+        this.nivelEnergia = Math.max(100, nivelEnergia);
     }
 
     @Override
@@ -47,8 +52,11 @@ public class CriaturaAncestral extends Criatura {
             ganador.setNivelEnergia(ganador.getNivelEnergia() + 20);
 
             int energiaRestante = perdedor.getEnergiaTotal() - 15;
-            perdedor.setNivelEnergia(Math.max(0, energiaRestante));
+            if (perdedor.esAncestral()) {
+                perdedor.setNivelEnergia(Math.max(100, energiaRestante));
+            } else {
+                perdedor.setNivelEnergia(Math.max(0, energiaRestante));
+            }
         }
-        ;
-    };
+    }
 }

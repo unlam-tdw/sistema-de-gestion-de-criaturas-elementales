@@ -102,4 +102,21 @@ public class CriaturaAncestralTest {
 	public void testEsAncestral() {
 		assertTrue("esAncestral debe retornar true", criatura.esAncestral());
 	}
+	
+	@Test
+	public void testEnergiaNuncaBajaDe100EnInteracciones() {
+		// Verificar que una ancestral con energía mínima mantiene 100 en interacciones
+		criatura = new CriaturaAncestral("Ancestral", ENERGIA_MINIMA, AfinidadElemental.FUEGO);
+		Criatura otraAncestral = new CriaturaAncestral("Ancestral2", 150, AfinidadElemental.AGUA);
+		
+		int energiaInicial = criatura.getNivelEnergia();
+		assertEquals("Debe comenzar con energía mínima 100", ENERGIA_MINIMA, energiaInicial);
+		
+		criatura.interactuar(otraAncestral);
+		
+		// Después de la interacción, debe tener al menos 100
+		assertTrue("La energía nunca debe bajar de 100", criatura.getNivelEnergia() >= ENERGIA_MINIMA);
+		// Debe haber ganado 20, así que debe tener 120
+		assertEquals("Debe tener 120 después de ganar 20", ENERGIA_MINIMA + 20, criatura.getNivelEnergia());
+	}
 }

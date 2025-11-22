@@ -7,9 +7,7 @@ import org.junit.Test;
 
 import ar.edu.unlam.pbii.criaturas.AfinidadElemental;
 import ar.edu.unlam.pbii.criaturas.Criatura;
-import ar.edu.unlam.pbii.criaturas.CriaturaAncestral;
 import ar.edu.unlam.pbii.criaturas.CriaturaDomesticada;
-import ar.edu.unlam.pbii.criaturas.CriaturaSalvaje;
 
 public class SistemaInteraccionesTest {
 
@@ -24,9 +22,6 @@ public class SistemaInteraccionesTest {
 	
 	@Test
 	public void testInteractuarDelegaACriatura() {
-		int energiaInicial1 = criatura1.getNivelEnergia();
-		int energiaInicial2 = criatura2.getNivelEnergia();
-		
 		SistemaInteracciones.interactuar(criatura1, criatura2);
 		
 		assertNotNull("No debe lanzar excepción", criatura1);

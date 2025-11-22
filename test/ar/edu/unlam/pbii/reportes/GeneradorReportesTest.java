@@ -11,8 +11,8 @@ import org.junit.Test;
 
 import ar.edu.unlam.pbii.criaturas.AfinidadElemental;
 import ar.edu.unlam.pbii.criaturas.Criatura;
-import ar.edu.unlam.pbii.criaturas.CriaturaAncestral;
 import ar.edu.unlam.pbii.criaturas.CriaturaDomesticada;
+import ar.edu.unlam.pbii.excepciones.NombreDuplicadoException;
 import ar.edu.unlam.pbii.maestros.MaestroElemental;
 import ar.edu.unlam.pbii.transformaciones.BendicionDelRio;
 
@@ -34,7 +34,7 @@ public class GeneradorReportesTest {
 	}
 	
 	@Test
-	public void testListarTodasLasCriaturas() {
+	public void testListarTodasLasCriaturas() throws NombreDuplicadoException {
 		Criatura c1 = new CriaturaDomesticada("Dragon1", 50, AfinidadElemental.FUEGO);
 		Criatura c2 = new CriaturaDomesticada("Dragon2", 60, AfinidadElemental.AGUA);
 		Criatura c3 = new CriaturaDomesticada("Dragon3", 70, AfinidadElemental.AIRE);
@@ -61,7 +61,7 @@ public class GeneradorReportesTest {
 	}
 	
 	@Test
-	public void testObtenerCriaturaMayorEnergia() {
+	public void testObtenerCriaturaMayorEnergia() throws NombreDuplicadoException {
 		Criatura c1 = new CriaturaDomesticada("Dragon1", 50, AfinidadElemental.FUEGO);
 		Criatura c2 = new CriaturaDomesticada("Dragon2", 100, AfinidadElemental.AGUA);
 		Criatura c3 = new CriaturaDomesticada("Dragon3", 75, AfinidadElemental.AIRE);
@@ -76,7 +76,7 @@ public class GeneradorReportesTest {
 	}
 	
 	@Test
-	public void testObtenerCriaturaMayorEnergiaConTransformaciones() {
+	public void testObtenerCriaturaMayorEnergiaConTransformaciones() throws NombreDuplicadoException {
 		Criatura c1 = new CriaturaDomesticada("Dragon1", 50, AfinidadElemental.FUEGO);
 		Criatura c2 = new CriaturaDomesticada("Dragon2", 100, AfinidadElemental.AGUA);
 		Criatura c1Transformada = new BendicionDelRio(c1);
@@ -99,7 +99,7 @@ public class GeneradorReportesTest {
 	}
 	
 	@Test
-	public void testObtenerMaestroConMasTransformadas() {
+	public void testObtenerMaestroConMasTransformadas() throws NombreDuplicadoException {
 		Criatura c1 = new CriaturaDomesticada("Dragon1", 50, AfinidadElemental.FUEGO);
 		Criatura c2 = new CriaturaDomesticada("Dragon2", 60, AfinidadElemental.AGUA);
 		Criatura c3 = new CriaturaDomesticada("Dragon3", 70, AfinidadElemental.AIRE);
@@ -127,7 +127,7 @@ public class GeneradorReportesTest {
 	}
 	
 	@Test
-	public void testObtenerMaestroConMasTransformadasConEmpate() {
+	public void testObtenerMaestroConMasTransformadasConEmpate() throws NombreDuplicadoException {
 		Criatura c1 = new CriaturaDomesticada("Dragon1", 50, AfinidadElemental.FUEGO);
 		Criatura c2 = new CriaturaDomesticada("Dragon2", 60, AfinidadElemental.AGUA);
 		Criatura c3 = new CriaturaDomesticada("Dragon3", 70, AfinidadElemental.AIRE);
@@ -148,14 +148,13 @@ public class GeneradorReportesTest {
 		
 		// En caso de empate, debe retornar el primero encontrado (maestro1)
 		assertNotNull("Debe retornar un maestro en caso de empate", maestroConMas);
-		assertTrue("Debe retornar uno de los maestros con más transformadas", 
-				maestroConMas == maestro1 || maestroConMas == maestro2);
+		assertTrue("Debe retornar uno de los maestros con más transformadas", maestroConMas == maestro1 || maestroConMas == maestro2);
 		assertEquals("Ambos deben tener 2 transformadas", 2, maestro1.contarCriaturasTransformadas());
 		assertEquals("Ambos deben tener 2 transformadas", 2, maestro2.contarCriaturasTransformadas());
 	}
 	
 	@Test
-	public void testObtenerCantidadPorAfinidad() {
+	public void testObtenerCantidadPorAfinidad() throws NombreDuplicadoException {
 		Criatura c1 = new CriaturaDomesticada("Dragon1", 50, AfinidadElemental.FUEGO);
 		Criatura c2 = new CriaturaDomesticada("Dragon2", 60, AfinidadElemental.FUEGO);
 		Criatura c3 = new CriaturaDomesticada("Dragon3", 70, AfinidadElemental.AGUA);
@@ -175,7 +174,7 @@ public class GeneradorReportesTest {
 	}
 	
 	@Test
-	public void testObtenerCantidadPorAfinidadConTodasLasAfinidades() {
+	public void testObtenerCantidadPorAfinidadConTodasLasAfinidades() throws NombreDuplicadoException {
 		Criatura c1 = new CriaturaDomesticada("Dragon1", 50, AfinidadElemental.FUEGO);
 		Criatura c2 = new CriaturaDomesticada("Dragon2", 60, AfinidadElemental.AGUA);
 		Criatura c3 = new CriaturaDomesticada("Dragon3", 70, AfinidadElemental.AIRE);
@@ -194,7 +193,7 @@ public class GeneradorReportesTest {
 	}
 	
 	@Test
-	public void testObtenerCantidadPorAfinidadConTransformaciones() {
+	public void testObtenerCantidadPorAfinidadConTransformaciones() throws NombreDuplicadoException {
 		Criatura c1 = new CriaturaDomesticada("Dragon1", 50, AfinidadElemental.FUEGO);
 		
 		maestro1.agregarCriatura(c1);
