@@ -6,7 +6,7 @@ public class CriaturaAncestral extends Criatura {
     }
 
     public void entrenar(int nivelMaestria) {
-        if (nivelMaestria > 40) {
+        if (nivelMaestria > 33) {
             this.estaInestable = true;
         }
 
@@ -30,7 +30,7 @@ public class CriaturaAncestral extends Criatura {
     }
 
     @Override
-    protected void setNivelEnergia(int nivelEnergia) {
+    public void setNivelEnergia(int nivelEnergia) {
         this.nivelEnergia = Math.max(100, nivelEnergia);
     }
 

@@ -29,7 +29,7 @@ public abstract class Criatura {
 		return nivelEnergia;
 	}
 
-	protected void setNivelEnergia(int nivelEnergia) {
+	public void setNivelEnergia(int nivelEnergia) {
 		this.nivelEnergia = nivelEnergia;
 	}
 
@@ -51,8 +51,10 @@ public abstract class Criatura {
 
 	public void interactuar(Criatura otra) {
 		if (this.afinidad.equals(otra.getAfinidad())) {
-			this.nivelEnergia += 10;
-			otra.setNivelEnergia(otra.getNivelEnergia() + 10);
+			int nuevoNivelEnergia = Math.max(0, Math.min(200, this.getNivelEnergia() + 10));	
+			int nuevoNivelEnergiaOtra = Math.max(0, Math.min(200, otra.getNivelEnergia() + 10));
+			this.setNivelEnergia(nuevoNivelEnergia);
+			otra.setNivelEnergia(nuevoNivelEnergiaOtra);
 		} else if (this.getAfinidad().esOpuesta(otra.getAfinidad())) {
 			this.setEstaInestable(true);
 			otra.setEstaInestable(true);
