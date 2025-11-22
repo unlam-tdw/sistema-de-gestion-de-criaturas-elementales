@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.unlam.pbii.transformaciones.AscensoDelViento;
 import ar.edu.unlam.pbii.transformaciones.BendicionDelRio;
 import ar.edu.unlam.pbii.transformaciones.LlamaInterna;
 
