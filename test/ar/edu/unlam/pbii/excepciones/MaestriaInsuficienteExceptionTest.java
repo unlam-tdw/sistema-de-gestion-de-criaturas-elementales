@@ -11,8 +11,7 @@ public class MaestriaInsuficienteExceptionTest {
 		int nivelMaestria = 5;
 		int nivelMinimo = 10;
 		
-		MaestriaInsuficienteException excepcion = 
-				new MaestriaInsuficienteException(nivelMaestria, nivelMinimo);
+		MaestriaInsuficienteException excepcion = new MaestriaInsuficienteException(nivelMaestria, nivelMinimo);
 		
 		assertNotNull("La excepción no debe ser null", excepcion);
 		assertTrue("El mensaje debe contener el nivel de maestría", excepcion.getMessage().contains("5"));
@@ -35,7 +34,10 @@ public class MaestriaInsuficienteExceptionTest {
 		MaestriaInsuficienteException excepcion = new MaestriaInsuficienteException(5, 10);
 		
 		assertTrue("Debe ser instancia de Exception", excepcion instanceof Exception);
-		assertFalse("No debe ser instancia de RuntimeException", excepcion instanceof RuntimeException);
+		// Verificar que es checked exception (extiende Exception, no RuntimeException)
+		// Verificamos que la clase padre es Exception, no RuntimeException
+		Class<?> clasePadre = excepcion.getClass().getSuperclass();
+		assertEquals("Debe extender Exception directamente", Exception.class, clasePadre);
 	}
 }
 
