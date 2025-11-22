@@ -343,9 +343,9 @@ classDiagram
    - Test: SistemaInteracciones (orquestador)
 
 **Criterios de aceptación:**
-- [ ] Todas las reglas de interacción implementadas
-- [ ] Jerarquía de clases respeta SRP y OCP
-- [ ] Tests completos
+- [X] Todas las reglas de interacción implementadas
+- [X] Jerarquía de clases respeta SRP y OCP
+- [X] Tests completos
 
 ---
 
