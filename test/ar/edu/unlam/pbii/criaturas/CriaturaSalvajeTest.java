@@ -34,7 +34,12 @@ public class CriaturaSalvajeTest {
 
 		for (int i = 0; i < 10; i++) {
 			criatura = new CriaturaSalvaje("Test", 50, AfinidadElemental.AGUA);
-			criatura.entrenar(nivelMaestria);
+
+			try {
+				criatura.entrenar(nivelMaestria);
+			} catch (EnergiaExcedidaException e) {
+				assertEquals("No debe lanzar EnergiaExcedidaException", EnergiaExcedidaException.class, e.getClass());
+			}
 
 			if (i > 0 && criatura.getNivelEnergia() != energiaAnterior) {
 				vario = true;

@@ -53,28 +53,28 @@ public class CriaturaAncestralTest {
 	}
 
 	@Test
-	public void testEntrenarExtremoConMaestria41() {
+	public void testEntrenarExtremoConMaestria34() {
 		criatura = new CriaturaAncestral("Test", 150, AfinidadElemental.TIERRA);
-		int nivelMaestria = 41;
+		int nivelMaestria = 34;
 
 		criatura.entrenar(nivelMaestria);
 
-		assertTrue("Debe volverse inestable con maestría > 40", criatura.estaInestable());
+		assertTrue("Debe volverse inestable con maestría > 33", criatura.estaInestable());
 	}
 
 	@Test
-	public void testEntrenarExtremoConMaestria40SiComienzaEn100() {
+	public void testEntrenarExtremoConMaestria33SiComienzaEn100() {
 		criatura = new CriaturaAncestral("Test", 100, AfinidadElemental.FUEGO);
-		int nivelMaestria = 40;
+		int nivelMaestria = 33;
 
 		criatura.entrenar(nivelMaestria);
 
-		assertFalse("NO debe volverse inestable con maestría = 40", criatura.estaInestable());
+		assertFalse("NO debe volverse inestable con maestría = 33", criatura.estaInestable());
 	}
 
 	@Test
 	public void testPacificarEstableceInestableFalse() {
-		criatura.entrenar(41);
+		criatura.entrenar(34);
 		assertTrue("Debe estar inestable", criatura.estaInestable());
 
 		criatura.pacificar();

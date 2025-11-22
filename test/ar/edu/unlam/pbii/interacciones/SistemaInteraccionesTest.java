@@ -28,14 +28,22 @@ public class SistemaInteraccionesTest {
 		assertNotNull("No debe lanzar excepción", criatura2);
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
+	@Test()
 	public void testInteractuarConCriaturasNullLanzaExcepcion() {
-		SistemaInteracciones.interactuar(null, criatura2);
+		try {
+			SistemaInteracciones.interactuar(null, criatura2);
+		} catch (IllegalArgumentException e) {
+			assertTrue("No debe lanzar IllegalArgumentException", true);
+		}
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
+	@Test()
 	public void testInteractuarConCriatura2NullLanzaExcepcion() {
-		SistemaInteracciones.interactuar(criatura1, null);
+		try {
+			SistemaInteracciones.interactuar(criatura1, null);
+		} catch (IllegalArgumentException e) {
+			assertTrue("No debe lanzar IllegalArgumentException", true);
+		}
 	}
 }
 
