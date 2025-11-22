@@ -384,10 +384,10 @@ classDiagram
 7. Crear casos de prueba end-to-end
 
 **Criterios de aceptación:**
-- [ ] Todo el sistema funciona integrado
-- [ ] Cobertura de tests ≥ 70%
-- [ ] Código limpio y bien estructurado
-- [ ] Principios SOLID aplicados
+- [X] Todo el sistema funciona integrado
+- [X] Cobertura de tests ≥ 70%
+- [X] Código limpio y bien estructurado
+- [X] Principios SOLID aplicados
 
 ---
 
