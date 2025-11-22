@@ -199,5 +199,39 @@ public class CriaturaInteraccionesTest {
 		assertEquals("Ambas deben ganar 10 energía", energiaInicial1 + 10, criatura1.getNivelEnergia());
 		assertEquals("Ambas deben ganar 10 energía", energiaInicial2 + 10, criatura2.getNivelEnergia());
 	}
+	
+	@Test
+	public void testInteractuarAncestralMantieneEnergiaMinima100() {
+		// Caso: Ancestral con energía mínima (100) interactúa con otra ancestral
+		// Ambas ganan 20, pero la ancestral debe mantener mínimo 100
+		criatura1 = new CriaturaAncestral("Ancestral1", 100, AfinidadElemental.FUEGO);
+		criatura2 = new CriaturaAncestral("Ancestral2", 100, AfinidadElemental.AGUA);
+		
+		criatura1.interactuar(criatura2);
+		
+		// Ambas deben tener al menos 100 de energía
+		assertTrue("Ancestral debe mantener mínimo 100 de energía", criatura1.getNivelEnergia() >= 100);
+		assertTrue("Ancestral debe mantener mínimo 100 de energía", criatura2.getNivelEnergia() >= 100);
+		// Ambas ganaron 20, así que deben tener 120
+		assertEquals("Ancestral debe tener 120 después de ganar 20", 120, criatura1.getNivelEnergia());
+		assertEquals("Ancestral debe tener 120 después de ganar 20", 120, criatura2.getNivelEnergia());
+	}
+	
+	@Test
+	public void testInteractuarAncestralConEnergiaBajaMantieneMinimo100() {
+		// Caso: Ancestral con energía mínima (100) que interactúa
+		// Verificar que nunca baja de 100
+		criatura1 = new CriaturaAncestral("Ancestral", 100, AfinidadElemental.FUEGO);
+		criatura2 = new CriaturaAncestral("Ancestral2", 150, AfinidadElemental.AGUA);
+		
+		int energiaInicial1 = criatura1.getNivelEnergia();
+		
+		criatura1.interactuar(criatura2);
+		
+		// La ancestral debe mantener mínimo 100
+		assertTrue("Ancestral debe mantener mínimo 100 de energía", criatura1.getNivelEnergia() >= 100);
+		// Debe haber ganado 20, así que debe tener 120
+		assertEquals("Ancestral debe tener 120 después de ganar 20", energiaInicial1 + 20, criatura1.getNivelEnergia());
+	}
 }
 
