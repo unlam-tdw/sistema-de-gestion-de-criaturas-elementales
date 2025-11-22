@@ -366,9 +366,9 @@ classDiagram
    - Test: cantidad por afinidad (incluye transformaciones y caso vacío)
 
 **Criterios de aceptación:**
-- [ ] Los 4 reportes implementados
-- [ ] Lógica correcta en todos los casos
-- [ ] Tests completos
+- [X] Los 4 reportes implementados
+- [X] Lógica correcta en todos los casos
+- [X] Tests completos
 
 ---
 
