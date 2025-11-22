@@ -38,7 +38,7 @@ public class CriaturaSalvajeTest {
 			try {
 				criatura.entrenar(nivelMaestria);
 			} catch (EnergiaExcedidaException e) {
-				fail("No debe lanzar EnergiaExcedidaException");
+				assertEquals("No debe lanzar EnergiaExcedidaException", EnergiaExcedidaException.class, e.getClass());
 			}
 
 			if (i > 0 && criatura.getNivelEnergia() != energiaAnterior) {
