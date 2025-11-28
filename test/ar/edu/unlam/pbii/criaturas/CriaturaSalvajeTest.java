@@ -66,12 +66,19 @@ public class CriaturaSalvajeTest {
 		}
 	}
 
-	@Test(expected = EnergiaExcedidaException.class)
-	public void testEntrenarLanzaExcepcionSiSupera200() throws EnergiaExcedidaException {
+	@Test
+	public void testEntrenarLanzaExcepcionSiSupera200() {
 		criatura = new CriaturaSalvaje("Test", 199, AfinidadElemental.FUEGO);
 		int nivelMaestria = 50;
+		int energiaMaxima = 200;
 
-		criatura.entrenar(nivelMaestria);
+		try {
+			criatura.entrenar(nivelMaestria);
+			fail("Debe lanzar EnergiaExcedidaException");
+		} catch (EnergiaExcedidaException e) {
+			assertTrue("La energía actual debe ser mayor a 200", e.getEnergiaActual() > energiaMaxima);
+			assertEquals("Debe retornar la energía máxima correcta", energiaMaxima, e.getEnergiaMaxima());
+		}
 	}
 
 	@Test

@@ -80,17 +80,31 @@ public class MaestroElementalTest {
 		maestroLimite.entrenarCriatura(criatura.getNombre());
 	}
 	
-	@Test(expected = MaestriaInsuficienteException.class)
-	public void testEntrenarCriaturaConMaestria9LanzaExcepcion() throws MaestriaInsuficienteException, CriaturaNoEncontradaException, NombreDuplicadoException {
+	@Test
+	public void testEntrenarCriaturaConMaestria9LanzaExcepcion() throws CriaturaNoEncontradaException, NombreDuplicadoException {
 		MaestroElemental maestroInsuficiente = new MaestroElemental("Test", 9, AfinidadElemental.FUEGO);
 		maestroInsuficiente.agregarCriatura(criatura);
 		
-		maestroInsuficiente.entrenarCriatura(criatura.getNombre());
+		try {
+			maestroInsuficiente.entrenarCriatura(criatura.getNombre());
+			fail("Debe lanzar MaestriaInsuficienteException");
+		} catch (MaestriaInsuficienteException e) {
+			assertEquals("Debe retornar el nivel de maestría correcto", 9, e.getNivelMaestria());
+			assertEquals("Debe retornar el nivel mínimo correcto", 10, e.getNivelMinimo());
+		}
 	}
 	
-	@Test(expected = CriaturaNoEncontradaException.class)
-	public void testEntrenarCriaturaNoEncontradaLanzaExcepcion() throws MaestriaInsuficienteException, CriaturaNoEncontradaException {
-		maestro.entrenarCriatura("CriaturaInexistente");
+	@Test
+	public void testEntrenarCriaturaNoEncontradaLanzaExcepcion() throws MaestriaInsuficienteException {
+		String nombreCriaturaInexistente = "CriaturaInexistente";
+		
+		try {
+			maestro.entrenarCriatura(nombreCriaturaInexistente);
+			fail("Debe lanzar CriaturaNoEncontradaException");
+		} catch (CriaturaNoEncontradaException e) {
+			assertEquals("Debe retornar el nombre de la criatura correcto", nombreCriaturaInexistente, e.getNombreCriatura());
+			assertEquals("Debe retornar el nombre del maestro correcto", maestro.getNombre(), e.getNombreMaestro());
+		}
 	}
 	
 	@Test
@@ -118,9 +132,17 @@ public class MaestroElementalTest {
 		assertNotNull("No debe lanzar excepción", criatura);
 	}
 	
-	@Test(expected = CriaturaNoEncontradaException.class)
-	public void testPacificarCriaturaNoEncontradaLanzaExcepcion() throws CriaturaNoEncontradaException {
-		maestro.pacificarCriatura("CriaturaInexistente");
+	@Test
+	public void testPacificarCriaturaNoEncontradaLanzaExcepcion() {
+		String nombreCriaturaInexistente = "CriaturaInexistente";
+		
+		try {
+			maestro.pacificarCriatura(nombreCriaturaInexistente);
+			fail("Debe lanzar CriaturaNoEncontradaException");
+		} catch (CriaturaNoEncontradaException e) {
+			assertEquals("Debe retornar el nombre de la criatura correcto", nombreCriaturaInexistente, e.getNombreCriatura());
+			assertEquals("Debe retornar el nombre del maestro correcto", maestro.getNombre(), e.getNombreMaestro());
+		}
 	}
 	
 	@Test
@@ -131,12 +153,17 @@ public class MaestroElementalTest {
 		assertEquals("Criatura normal no cuenta como transformada", 0, maestro.contarCriaturasTransformadas());
 	}
 	
-	@Test(expected = NombreDuplicadoException.class)
+	@Test
 	public void testAgregarCriaturaConNombreDuplicadoLanzaExcepcion() throws NombreDuplicadoException {
 		maestro.agregarCriatura(criatura);
 		Criatura criaturaDuplicada = new CriaturaDomesticada(criatura.getNombre(), 60, AfinidadElemental.AGUA);
 		
-		maestro.agregarCriatura(criaturaDuplicada);
+		try {
+			maestro.agregarCriatura(criaturaDuplicada);
+			fail("Debe lanzar NombreDuplicadoException");
+		} catch (NombreDuplicadoException e) {
+			assertEquals("Debe retornar el nombre de la criatura correcto", criatura.getNombre(), e.getNombreCriatura());
+		}
 	}
 	
 	@Test
@@ -152,10 +179,18 @@ public class MaestroElementalTest {
 		assertTrue("La energía debe aumentar con la transformación", criaturaTransformada.getEnergiaTotal() > energiaInicial);
 	}
 	
-	@Test(expected = CriaturaNoEncontradaException.class)
-	public void testTransformarCriaturaNoEncontradaLanzaExcepcion() throws CriaturaNoEncontradaException {
+	@Test
+	public void testTransformarCriaturaNoEncontradaLanzaExcepcion() {
+		String nombreCriaturaInexistente = "CriaturaInexistente";
 		BendicionDelRio transformacion = new BendicionDelRio(criatura);
-		maestro.transformarCriatura("CriaturaInexistente", transformacion);
+		
+		try {
+			maestro.transformarCriatura(nombreCriaturaInexistente, transformacion);
+			fail("Debe lanzar CriaturaNoEncontradaException");
+		} catch (CriaturaNoEncontradaException e) {
+			assertEquals("Debe retornar el nombre de la criatura correcto", nombreCriaturaInexistente, e.getNombreCriatura());
+			assertEquals("Debe retornar el nombre del maestro correcto", maestro.getNombre(), e.getNombreMaestro());
+		}
 	}
 }
 
